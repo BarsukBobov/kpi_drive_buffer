@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      dockerfile: conf/docker/dev/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PRODUCTION=$PRODUCTION
+      - LOG_LEVEL=$LOG_LEVEL
+      - KPI_DRIVE_URL=$KPI_DRIVE_URL
+      - KPI_DRIVE_TOKEN=$KPI_DRIVE_TOKEN
+    volumes:
+      - .:/usr/src/app
+    command: air -c ./conf/.air.toml ./cmd/main.go -b 0.0.0.0
+
+
+networks:
+  default:
+    name: kpi_drive_buffer_dev
